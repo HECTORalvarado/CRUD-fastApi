@@ -1,10 +1,7 @@
 from fastapi import FastAPI
 
-from fastapi import FastAPI
+from routes.students import students
 
 app = FastAPI()
 
-
-@app.get("/")
-def root():
-    print('hello world')
+app.include_router(students)
