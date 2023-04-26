@@ -1,0 +1,28 @@
+# Archivos de compilación de Python
+*.pyc
+*.pyo
+__pycache__
+
+# Archivos de entorno virtual
+env/
+
+# Archivos generados por el sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Directorios generados
+build/
+dist/
+__pycache__/
+
+# Otros
+*.swp
+*.swo
+*.bak
+*.pyc
+*.pyo
+*.tmp
+*.DS_Store
