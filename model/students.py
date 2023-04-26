@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Required
+from pydantic import BaseModel, Required, EmailStr
 from fastapi import Query, Path
 from typing import Annotated
 
@@ -21,7 +21,7 @@ class Student (BaseModel):
         ge= 0,
         le= 1
         )] = 0
-    email: Annotated[str, Query(
+    email: Annotated[EmailStr, Query(
         title= "Correo electronico",
         description= "Correo electronico del estudiante",
 		regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')] = Required
