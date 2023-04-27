@@ -1,11 +1,11 @@
 from pydantic import BaseModel, Required, EmailStr
-from fastapi import Query, Path
+from fastapi import Query
 from typing import Annotated
 
 class Student (BaseModel):
     id: Annotated[int, None, Query(
         title= "ID",
-        description= "ID del estudiante")]
+        description= "ID del estudiante")] = None
     name: Annotated[str, Query(
         title= "Nombre",
         description= "Nombre del estudiante",
@@ -14,19 +14,17 @@ class Student (BaseModel):
         title= "Apellido",
         description= "Apellido del estudiante",
 		max_length=100)] = Required
-    habilitado: Annotated[int, Path(
+    habilitado: Annotated[bool, Query(
         title= "Habilitado",
-        description= "Estado del estudiante, puede ser 1 o 0",
-        ge= 0,
-        le= 1
-        )] = 0
+        description= "Estado del estudiante, puede ser True o False",
+        )] = False
     email: Annotated[EmailStr, Query(
         title= "Correo electronico",
         description= "Correo electronico del estudiante")] = Required
     date: Annotated[str, Query(
         title= "Fecha de nacimiento",
         description= "Fecha de nacimiento del estudiante",
-		regex=r'^\d{2}-\d{2}-\d{4}$')] = Required
+		regex=r'^\d{4}-\d{2}-\d{2}$')] = Required
     phone: Annotated[str, Query(
         title= "Telefono",
         description= "Telefono del estudiante",
