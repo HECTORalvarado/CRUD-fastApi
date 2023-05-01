@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status, Depends, Response
 from schemas.students import Student
 from sqlalchemy.orm import Session
+from fastapi.encoders import jsonable_encoder
 from config.db import get_db
 import model.students
 
@@ -23,20 +24,37 @@ def getStudent(student_id : int, db: Session = Depends(get_db)):
 @students.post("/students/", status_code= status.HTTP_201_CREATED)
 def createStudent( student: Student, db: Session = Depends(get_db)):
     student = model.students.Student(
-        nombres = student.name, 
-        apellidos = student.lastName,
+        nombres = student.nombres, 
+        apellidos = student.apellidos,
         habilitado = student.habilitado,
-        fecha_nacimiento = student.date,
+        fecha_nacimiento = student.fecha_nacimiento,
         email = student.email,
-        telefono = student.phone)
+        telefono = student.telefono)
     db.add(student)
     db.commit()
     db.refresh(student)
     return student
 
 @students.put("/students/{student_id}", status_code= status.HTTP_200_OK)
-def updateStudent(student_id : int, db: Session = Depends(get_db)):
-    return "Students", student_id
+async def updateStudent(student_id : int, studentUpdate: Student, db: Session = Depends(get_db)):
+    student = db.query(model.students.Student).filter(model.students.Student.id_estudiantes == student_id).first()
+    if not student:
+        Response.status_code = status.HTTP_404_NOT_FOUND
+        return {"messagge":"Estudiante no encontrado"}, 404
+    else:
+        for field, value in studentUpdate.dict().items():
+           setattr(student, field, value)
+        """ student = model.students.Student(
+        id_estudiantes = studentUpdate.id,
+        nombres = studentUpdate.name, 
+        apellidos = studentUpdate.lastName,
+        habilitado = studentUpdate.habilitado,
+        fecha_nacimiento = studentUpdate.date,
+        email = studentUpdate.email,
+        telefono = studentUpdate.phone) """
+        db.commit()
+        db.refresh(student)
+        return student
 
 @students.delete("/students/{student_id}", status_code= status.HTTP_200_OK)
 def deleteStudent(student_id : int, db: Session = Depends(get_db)):

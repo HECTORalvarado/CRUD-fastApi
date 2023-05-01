@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Required, EmailStr
+from pydantic import BaseModel, Field, Required, EmailStr
 from fastapi import Query
 from typing import Annotated
 
@@ -6,11 +6,11 @@ class Student (BaseModel):
     id: Annotated[int, None, Query(
         title= "ID",
         description= "ID del estudiante")] = None
-    name: Annotated[str, Query(
+    nombres: Annotated[str, Query(
         title= "Nombre",
         description= "Nombre del estudiante",
 		max_length=75)] = Required
-    lastName: Annotated[str, Query(
+    apellidos: Annotated[str, Query(
         title= "Apellido",
         description= "Apellido del estudiante",
 		max_length=100)] = Required
@@ -21,11 +21,11 @@ class Student (BaseModel):
     email: Annotated[EmailStr, Query(
         title= "Correo electronico",
         description= "Correo electronico del estudiante")] = Required
-    date: Annotated[str, Query(
+    fecha_nacimiento: Annotated[str, Query(
         title= "Fecha de nacimiento",
         description= "Fecha de nacimiento del estudiante",
 		regex=r'^\d{4}-\d{2}-\d{2}$')] = Required
-    phone: Annotated[str, Query(
+    telefono: Annotated[str, Query(
         title= "Telefono",
         description= "Telefono del estudiante",
 		regex=r'^\d{4}-\d{4}$')] = Required
