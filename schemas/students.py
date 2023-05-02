@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, Required, EmailStr
+from pydantic import BaseModel, Required, EmailStr
 from fastapi import Query
 from typing import Annotated
 

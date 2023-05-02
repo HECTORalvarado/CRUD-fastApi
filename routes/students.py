@@ -1,7 +1,6 @@
 from fastapi import APIRouter, status, Depends, Response
 from schemas.students import Student
 from sqlalchemy.orm import Session
-from fastapi.encoders import jsonable_encoder
 from config.db import get_db
 import model.students
 
