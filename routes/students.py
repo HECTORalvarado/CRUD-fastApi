@@ -43,14 +43,6 @@ async def updateStudent(student_id : int, studentUpdate: Student, db: Session = 
     else:
         for field, value in studentUpdate.dict().items():
            setattr(student, field, value)
-        """ student = model.students.Student(
-        id_estudiantes = studentUpdate.id,
-        nombres = studentUpdate.name, 
-        apellidos = studentUpdate.lastName,
-        habilitado = studentUpdate.habilitado,
-        fecha_nacimiento = studentUpdate.date,
-        email = studentUpdate.email,
-        telefono = studentUpdate.phone) """
         db.commit()
         db.refresh(student)
         return student
