@@ -6,7 +6,7 @@ import model.students
 
 students = APIRouter()
 
-@students.get("/students", status_code= status.HTTP_200_OK)
+@students.get("/students/", status_code= status.HTTP_200_OK)
 def getStudents(db: Session = Depends(get_db)):
     return db.query(model.students.Student).all()
 
