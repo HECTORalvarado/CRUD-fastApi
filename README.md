@@ -8,9 +8,9 @@ To install the dependencies, run the following comand
 `pip install -r requirements.txt`
 
 ## Run the project
-To run the project, yse the following comand
+To run the project, use the following comand
 
-`uvicorn main:app --reload`
+`uvicorn app:app --reload`
 
 The app will run on `localhost:8000/students`
 
